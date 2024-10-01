@@ -72,18 +72,18 @@
 //   }
 //   else if(num==2||num==="2"){
 //     console.log('monday');
-    
+
 //   }
 //   else if(num==3||num==="3"){
 //     console.log('tuesday');
-    
+
 //   }
 //   else if(num==4||num==="4"){
 //     console.log('wednesday');
-    
+
 //   }else if(num==5||num==="5"){
 //     console.log('thursday');
-    
+
 // }
 //  }
 //  weekDays(2);
@@ -97,7 +97,7 @@
 //   // console.log(greet+" "+name+" nice to meet you");
 //   const str2 =`${greet} ${name} , nice to meet you`
 //   console.log(str2);
-  
+
 // }
 //  greeting();
 
@@ -134,7 +134,7 @@
 //   console.log(day);
 // }else{
 //   console.log('not a valid');
-  
+
 // }
 // }
 // weekDays(2)
@@ -156,5 +156,103 @@
 //   }
 //   console.log(weekDays(1));
 //   console.log(weekDays());
-  
+
+// function action(letter, num) {
+//     const alphabets = "abcdefghijklmnopqrstuvwxyz"
+//     const UpperAlph = alphabets.toUpperCase();
+//     let newStr = ""
+//     for (let i of letter) {
+//         if (alphabets.includes(i)) {
+//             const index = alphabets.indexOf(i);
+//             newIndex = (index + num) % 26;
+//             newStr += alphabets[newIndex];
+//         } else if (UpperAlph.includes(i)) {
+//             const index = UpperAlph.indexOf(i);
+//             let newIndex = (index + num) % 26;
+//             newStr += UpperAlph[newIndex];
+//         } else {
+//             newStr += i
+//         }
+//     }
+// }
+// console.log(action("abc", 3));
+
+// function action(letter, num) {
+//     const alphabets = "abcdefghijklmnopqrstuvwxyz"
+//     // const upperAlphabets = alphabets.toUpperCase();
+//     let newStr = ""
+//     for (let i of letter) {
+//         const index = alphabets.indexOf(i);
+//         if (index === -1) {
+//             newStr += i;
+//             continue;
+//         }
+//         let newIndex = index + num;
+//         if (newIndex > 25) {
+//             newIndex %= 26;
+//         }
+//         const newChar = alphabets[newIndex];
+
+//         newStr += newChar
+
+//     }
+//     console.log(newStr);
+
+// }
+// action("abc-abc hello", 2)
+
+function encrypt(string) {
+    function generateRandom() {
+        const rn = Math.ceil(Math.random() * 10);
+        return rn;
+    }
+    function addText(text, key) {
+        let alphabets = "abcdefghijklmnopqrstuvwxyz";
+        let encrypted = "";
+
+        for (let char of text) {
+            // If it is a special character
+            if (!alphabets.includes(char) && !alphabets.toUpperCase().includes(char)) {
+                encrypted += char;
+                continue;
+            }
+
+            // Find index or -1
+            let index = alphabets.indexOf(char);
+
+            // This will run if the alphabet is uppercase
+            if (index === -1) {
+                alphabets = alphabets.toUpperCase();
+                index = alphabets.indexOf(char);
+            }
+
+            // Construct new index
+            let newIndex = index + key;
+
+            // Check for range
+            if (newIndex > 25) {
+                newIndex %= 26;
+            }
+
+            const newChar = alphabets[newIndex];
+
+            encrypted += newChar;
+
+            // Convert alphabets back to lowercase
+            alphabets = alphabets.toLowerCase();
+        }
+        return encrypted;
+    }
+    const finalKey = generateRandom();
+    const finalStr = addText(string, finalKey);
+    return {
+        str: finalStr,
+        key: finalKey
+    }
+}
+
+const x = encrypt("-aHello there how are you"); // bza-B
+console.log(x);
+
+
 
